@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>صيدلية مشوار</title>
+<meta name="theme-color" content="#06b6d4">
+<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3063/3063822.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#06b6d4;--primary-dark:#0891b2;--primary-glow:rgba(6,182,212,.5);--secondary:#8b5cf6;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--bg-deep:#090d16;--card:rgba(28,36,58,.7);--border:rgba(255,255,255,.1);--text:#f1f5f9;--text-soft:#cbd5e1;--text-muted:#94a3b8;--text-dim:#64748b}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow-x:hidden}
+body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6,182,212,.15) 0,transparent 40%),radial-gradient(circle at 90% 100%,rgba(139,92,246,.12) 0,transparent 40%);color:var(--text);min-height:100vh;padding-bottom:40px}
+.splash{position:fixed;inset:0;background:linear-gradient(135deg,#090d16,#0c4a6e);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;transition:opacity .5s,visibility .5s}
+.splash.hide{opacity:0;visibility:hidden}
+.splash-logo{width:110px;height:110px;border-radius:32px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:50px;color:#fff;box-shadow:0 0 60px rgba(6,182,212,.5);animation:sp 1.5s ease-in-out infinite}
+@keyframes sp{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.splash-title{margin-top:25px;font-size:26px;font-weight:900;background:linear-gradient(90deg,#22d3ee,#a78bfa,#22d3ee);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sh 2s linear infinite}
+@keyframes sh{to{background-position:200% center}}
+.splash-sub{margin-top:8px;font-size:12px;color:var(--text-muted);letter-spacing:3px}
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{width:100%;max-width:420px;background:linear-gradient(160deg,rgba(30,41,59,.85),rgba(15,23,42,.95));backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,.1);border-radius:32px;padding:40px 28px 32px;box-shadow:0 30px 60px rgba(0,0,0,.6);animation:ci .6s cubic-bezier(.16,1,.3,1)}
+@keyframes ci{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.login-logo{width:75px;height:75px;border-radius:24px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;margin:0 auto 20px;box-shadow:0 10px 30px rgba(6,182,212,.5)}
+.login-title{text-align:center;font-size:24px;font-weight:900;color:#fff;margin-bottom:6px}
+.login-sub{text-align:center;font-size:12.5px;color:var(--text-muted);margin-bottom:28px}
+.inp-wrap{position:relative;margin:12px 0}
+.inp-wrap>i{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:15px;pointer-events:none}
+.inp-wrap input{width:100%;padding:15px 48px 15px 20px;background:rgba(10,15,28,.75);border:1.5px solid var(--border);border-radius:14px;color:#fff;font-size:14px;outline:none;font-family:'Cairo',sans-serif}
+.inp-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(6,182,212,.15)}
+.area-trigger-btn{width:100%;padding:15px 48px 15px 20px;background:rgba(10,15,28,.75);border:1.5px solid var(--border);border-radius:14px;color:var(--text-muted);font-size:14px;text-align:right;cursor:pointer;font-family:'Cairo',sans-serif}
+.area-trigger-btn.filled{color:#fff;border-color:var(--primary);background:rgba(6,182,212,.1)}
+.btn-main{width:100%;padding:16px;border:none;border-radius:14px;font-size:15px;font-weight:900;color:#fff;cursor:pointer;font-family:'Cairo',sans-serif;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 12px 25px rgba(6,182,212,.45);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+.btn-main:active{transform:scale(.98)}
+.app-header{position:relative;padding:16px 20px 18px;margin-bottom:10px;background:linear-gradient(160deg,rgba(6,182,212,.25) 0,rgba(139,92,246,.12) 50%,transparent 100%);border-bottom-left-radius:32px;border-bottom-right-radius:32px;overflow:hidden}
+.header-row{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.user-avatar{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff;font-weight:900;border:2px solid rgba(255,255,255,.15);flex-shrink:0}
+.user-text{flex:1;min-width:0}
+.user-greet-line{font-size:11px;color:var(--text-muted);margin-bottom:3px}
+.user-name-line{font-size:15px;font-weight:900;color:#fff;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.role-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:linear-gradient(135deg,#06b6d4,#0891b2);border-radius:14px;font-size:10.5px;font-weight:900;color:#fff}
+.user-location-line{font-size:11.5px;color:var(--text-soft);margin-top:4px;display:flex;align-items:center;gap:5px}
+.user-location-line i{color:var(--warning);font-size:10px}
+.settings-icon{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid var(--border);color:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+.settings-icon:active{transform:scale(.93);background:rgba(6,182,212,.25)}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 20px;margin-bottom:20px}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;text-align:center}
+.stat-box i{font-size:20px;display:block;margin-bottom:6px}
+.stat-box .sv{font-size:20px;font-weight:900;color:#fff;line-height:1.2}
+.stat-box .sl{font-size:10.5px;color:var(--text-muted);font-weight:600;margin-top:3px}
+.section{padding:0 20px;margin-bottom:18px}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.section-title{font-size:15px;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px}
+.section-title i{width:28px;height:28px;background:linear-gradient(135deg,rgba(6,182,212,.2),rgba(139,92,246,.15));border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:13px}
+.section-count{background:rgba(245,158,11,.15);color:#fbbf24;padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:900;border:1px solid rgba(245,158,11,.3)}
+
+/* ============ ORDER CARDS ============ */
+.order-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden;transition:.2s}
+.order-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:#06b6d4}
+.order-card.waiting-price{border-color:rgba(245,158,11,.5);animation:pulseWait 2s infinite}
+@keyframes pulseWait{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4)}50%{box-shadow:0 0 0 8px rgba(245,158,11,0)}}
+.order-card.priced{border-color:rgba(16,185,129,.4)}
+.order-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:10px}
+.order-info-block{flex:1;min-width:0}
+.order-customer{font-size:14px;font-weight:900;color:#fff;margin-bottom:4px}
+.order-time{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:5px}
+.order-status-badge{padding:5px 12px;border-radius:20px;font-size:10.5px;font-weight:900;display:inline-flex;align-items:center;gap:5px;flex-shrink:0}
+.status-waiting{background:rgba(245,158,11,.2);color:#fbbf24;border:1px solid rgba(245,158,11,.5)}
+.status-priced{background:rgba(16,185,129,.2);color:#34d399;border:1px solid rgba(16,185,129,.5)}
+.status-done{background:rgba(100,116,139,.2);color:#cbd5e1;border:1px solid rgba(100,116,139,.4)}
+.order-detail-row{font-size:12.5px;color:var(--text-soft);padding:6px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.order-detail-row i{color:var(--primary);font-size:11px;margin-top:4px;flex-shrink:0}
+.order-detail-row b{color:#fff;font-weight:700}
+.order-rx-preview{margin:10px 0;border-radius:12px;overflow:hidden;border:1.5px solid rgba(6,182,212,.4);position:relative;cursor:pointer;background:rgba(0,0,0,.3);max-height:200px}
+.order-rx-preview img{width:100%;height:auto;display:block;max-height:200px;object-fit:cover}
+.order-rx-preview-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);color:#fff;font-size:11px;font-weight:800;padding:20px 10px 8px;text-align:center}
+.order-actions{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.btn-action{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;font-size:13px;cursor:pointer;font-family:'Cairo',sans-serif;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;text-decoration:none}
+.btn-action:active{transform:scale(.97)}
+.btn-price{background:linear-gradient(135deg,#06b6d4,#0891b2);box-shadow:0 8px 20px rgba(6,182,212,.35)}
+.btn-edit-price{background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 8px 20px rgba(245,158,11,.35)}
+.btn-view-price{background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 8px 20px rgba(16,185,129,.35)}
+.price-set-box{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(6,182,212,.1));border:1.5px solid rgba(16,185,129,.4);border-radius:14px;padding:14px;margin-top:12px;display:flex;justify-content:space-between;align-items:center}
+.price-set-box-label{font-size:12px;color:#7dd3fc;font-weight:700}
+.price-set-box-value{font-size:22px;font-weight:900;color:#34d399}
+.price-set-box-value::after{content:' ج';font-size:12px;color:var(--text-muted);font-weight:700}
+
+/* ============ TABS ============ */
+.tabs-bar{display:flex;gap:6px;background:rgba(10,15,28,.6);border:1px solid var(--border);border-radius:14px;padding:5px;margin:0 20px 15px}
+.tab-btn{flex:1;padding:10px 8px;border:none;background:transparent;color:var(--text-muted);font-weight:700;font-size:12px;cursor:pointer;border-radius:10px;font-family:'Cairo',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
+.tab-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff}
+.tab-btn .tab-count{background:rgba(255,255,255,.25);color:#fff;font-size:10px;font-weight:900;padding:2px 6px;border-radius:8px;min-width:16px;text-align:center}
+.tab-btn:not(.active) .tab-count{background:rgba(6,182,212,.2);color:#67e8f9}
+
+/* ============ EMPTY ============ */
+.empty-state{text-align:center;padding:60px 30px;color:var(--text-muted)}
+.empty-state i{font-size:60px;color:rgba(6,182,212,.3);margin-bottom:15px;display:block}
+.empty-state p{font-size:13px;line-height:1.8}
+
+/* ============ MODAL ============ */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);z-index:5000;opacity:0;visibility:hidden;transition:.3s}
+.sheet-overlay.show{opacity:1;visibility:visible}
+.bottom-sheet{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(30,40,60,.98),rgba(15,23,42,1));border-top-left-radius:32px;border-top-right-radius:32px;border-top:1px solid rgba(6,182,212,.4);z-index:5001;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);max-height:92vh;overflow-y:auto;padding:12px 0 20px;max-width:600px;margin:0 auto}
+.bottom-sheet.show{transform:translateY(0)}
+.sheet-handle{width:40px;height:4px;background:rgba(255,255,255,.2);border-radius:4px;margin:0 auto 18px}
+.sheet-header{padding:0 22px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+.sheet-icon{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0}
+.sheet-title{font-size:18px;font-weight:900;color:#fff}
+.sheet-sub{font-size:11.5px;color:var(--text-muted);margin-top:3px}
+.sheet-close{margin-right:auto;width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--text-muted);cursor:pointer;font-size:14px}
+.sheet-body{padding:20px 22px}
+.field{margin-bottom:14px}
+.field-label{display:block;font-size:12.5px;font-weight:700;color:var(--text-soft);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.field-label i{color:var(--primary);font-size:11px}
+.field input,.field textarea{width:100%;padding:14px 16px;background:rgba(10,15,28,.8);border:1.5px solid var(--border);border-radius:14px;color:#fff;font-size:14px;outline:none;font-family:'Cairo',sans-serif}
+.field input:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(6,182,212,.12)}
+.field textarea{resize:vertical;min-height:70px;line-height:1.7}
+.helper-text{font-size:10.5px;color:var(--text-dim);margin-top:6px}
+.price-input-wrap{position:relative}
+.price-input-wrap input{padding-left:50px;text-align:center;font-size:24px;font-weight:900;color:var(--success)}
+.price-input-wrap::after{content:'ج';position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:14px;font-weight:700}
+
+/* ============ ORDER SUMMARY ============ */
+.summary-box{background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(139,92,246,.1));border:1.5px solid rgba(6,182,212,.4);border-radius:14px;padding:14px;margin-bottom:14px}
+.summary-row{display:flex;justify-content:space-between;font-size:12.5px;padding:6px 0;color:var(--text-soft);border-bottom:1px dashed rgba(255,255,255,.1)}
+.summary-row:last-child{border-bottom:none;font-size:15px;font-weight:900;color:#fff;padding-top:12px;margin-top:6px}
+.summary-row:last-child span:last-child{color:var(--success);font-size:20px}
+.summary-row:last-child span:last-child::after{content:' ج';font-size:11px}
+
+/* ============ CONFIRM ============ */
+.confirm-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:linear-gradient(160deg,rgba(30,40,60,.98),rgba(15,23,42,1));border:1.5px solid var(--border-active);border-radius:24px;z-index:5001;width:calc(100% - 40px);max-width:400px;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 60px rgba(0,0,0,.6);padding:25px 20px;text-align:center}
+.confirm-modal.show{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+.confirm-icon{width:70px;height:70px;border-radius:24px;background:linear-gradient(135deg,var(--warning),#d97706);display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;margin:0 auto 18px}
+.confirm-title{font-size:19px;font-weight:900;color:#fff;margin-bottom:10px}
+.confirm-msg{font-size:13px;color:var(--text-soft);line-height:1.8;margin-bottom:22px}
+.confirm-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-confirm{padding:13px;border:none;border-radius:12px;font-weight:900;font-size:13px;cursor:pointer;font-family:'Cairo',sans-serif;color:#fff}
+.btn-yes{background:linear-gradient(135deg,#059669,#10b981)}
+.btn-no{background:rgba(255,255,255,.1)}
+
+/* ============ SUCCESS ============ */
+.success-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:linear-gradient(160deg,rgba(30,40,60,.98),rgba(15,23,42,1));border:1.5px solid rgba(16,185,129,.5);border-radius:24px;z-index:5001;width:calc(100% - 40px);max-width:380px;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 60px rgba(0,0,0,.6);padding:25px 20px;text-align:center}
+.success-modal.show{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+.success-icon{width:80px;height:80px;border-radius:26px;background:linear-gradient(135deg,var(--success),#059669);display:flex;align-items:center;justify-content:center;font-size:38px;color:#fff;margin:0 auto 18px;animation:popIcon .6s cubic-bezier(.16,1,.3,1)}
+@keyframes popIcon{0%{transform:scale(.5);opacity:0}50%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+.success-title{font-size:20px;font-weight:900;color:#fff;margin-bottom:8px}
+.success-msg{font-size:13px;color:var(--text-soft);line-height:1.8;margin-bottom:22px}
+
+/* ============ TOAST ============ */
+.toast{position:fixed;bottom:30px;left:20px;right:20px;padding:14px 20px;background:linear-gradient(135deg,rgba(30,41,59,.98),rgba(15,23,42,.98));border-radius:16px;color:#fff;font-size:13px;font-weight:700;box-shadow:0 20px 40px rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;gap:12px;transform:translateY(200px);opacity:0;transition:all .4s cubic-bezier(.16,1,.3,1);border:1px solid var(--border)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast i{font-size:18px}
+.toast.success{border-color:rgba(16,185,129,.4)}
+.toast.success i{color:var(--success)}
+.toast.error{border-color:rgba(239,68,68,.4)}
+.toast.error i{color:var(--danger)}
+.toast.info i{color:var(--primary)}
+
+/* ============ IMAGE VIEWER ============ */
+.image-viewer{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:8px;opacity:0;visibility:hidden;transition:all .3s}
+.image-viewer.show{opacity:1;visibility:visible}
+.image-viewer img{max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.8);display:block;width:100%;object-fit:contain}
+.image-viewer-close{position:absolute;top:20px;right:20px;width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.image-viewer-close:active{transform:scale(.92)}
+
+.hidden{display:none!important}
+
+@media(min-width:500px){.stats-row{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="splash" id="splashScreen">
+    <div class="splash-logo"><i class="fas fa-prescription-bottle"></i></div>
+    <div class="splash-title">صيدلية مشوار</div>
+    <div class="splash-sub">بوابة الصيدلي</div>
+</div>
+
+<div class="login-screen" id="loginSection" style="display:none">
+    <div class="login-card">
+        <div class="login-logo"><i class="fas fa-prescription-bottle"></i></div>
+        <div class="login-title">أهلاً 👋</div>
+        <div class="login-sub">سجل دخولك وابدأ استقبال الطلبات</div>
+        <div class="inp-wrap">
+            <button type="button" class="area-trigger-btn" id="areaTriggerBtn" onclick="openAreaPicker()">
+                <span id="areaTriggerLabel">📍 اختر منطقتك...</span>
+            </button>
+            <i class="fas fa-map-marker-alt" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:15px;pointer-events:none"></i>
+        </div>
+        <div class="inp-wrap"><input type="tel" id="phoneInput" placeholder="رقم موبايلك (11 رقم)" maxlength="11"><i class="fas fa-mobile-alt"></i></div>
+        <div class="inp-wrap"><input type="password" id="codeInput" placeholder="كود الدخول" maxlength="6"><i class="fas fa-lock"></i></div>
+        <button class="btn-main" onclick="pharmacyLogin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
+    </div>
+</div>
+
+<div id="appSection" style="display:none">
+    <!-- Home Page -->
+    <div class="page active" id="page-home">
+        <div class="app-header">
+            <div class="header-row">
+                <div class="user-avatar" id="userAvatar">💊</div>
+                <div class="user-text">
+                    <div class="user-greet-line" id="greetText">صباح الخير 👋</div>
+                    <div class="user-name-line">
+                        <span id="displayName">اسم الصيدلية</span>
+                        <span class="role-badge" id="roleBadge">💊 صيدلية</span>
+                    </div>
+                    <div class="user-location-line"><i class="fas fa-map-marker-alt"></i><span id="displayArea">المنطقة</span></div>
+                </div>
+                <button class="settings-icon" onclick="openSettings()" title="الإعدادات"><i class="fas fa-cog"></i></button>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box"><i class="fas fa-hourglass-half" style="color:#fbbf24"></i><div class="sv" id="statWaiting">0</div><div class="sl">في انتظار السعر</div></div>
+            <div class="stat-box"><i class="fas fa-check-circle" style="color:#34d399"></i><div class="sv" id="statPriced">0</div><div class="sl">تم التسعير</div></div>
+            <div class="stat-box"><i class="fas fa-box" style="color:#cbd5e1"></i><div class="sv" id="statDone">0</div><div class="sl">مكتملة</div></div>
+        </div>
+
+        <div class="tabs-bar">
+            <button class="tab-btn active" id="tabWaiting" onclick="switchTab('waiting')">
+                <i class="fas fa-hourglass-half"></i> في انتظار السعر
+                <span class="tab-count" id="cntWaiting">0</span>
+            </button>
+            <button class="tab-btn" id="tabPriced" onclick="switchTab('priced')">
+                <i class="fas fa-check-circle"></i> تم التسعير
+                <span class="tab-count" id="cntPriced">0</span>
+            </button>
+            <button class="tab-btn" id="tabDone" onclick="switchTab('done')">
+                <i class="fas fa-archive"></i> مكتملة
+                <span class="tab-count" id="cntDone">0</span>
+            </button>
+        </div>
+
+        <div class="section">
+            <div id="ordersContainer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Area Picker Modal -->
+<div class="sheet-overlay" id="areaModalOverlay" onclick="closeAreaPicker()"></div>
+<div class="center-modal" id="areaModal" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:linear-gradient(160deg,rgba(30,40,60,.98),rgba(15,23,42,1));border:1.5px solid rgba(6,182,212,.4);border-radius:24px;z-index:5001;width:calc(100% - 40px);max-width:420px;max-height:80vh;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 60px rgba(0,0,0,.6)">
+    <div class="sheet-header" style="padding:18px 20px 14px;border-bottom:1px solid var(--border)">
+        <div class="sheet-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-map-marker-alt"></i></div>
+        <div><div class="sheet-title" style="font-size:16px">اختر منطقتك</div><div class="sheet-sub">المنطقة اللي فيها الصيدلية</div></div>
+        <button class="sheet-close" onclick="closeAreaPicker()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="sheet-body" id="areasListContainer" style="padding:14px;overflow-y:auto;max-height:60vh"></div>
+</div>
+
+<!-- Price Input Sheet -->
+<div class="sheet-overlay" id="priceSheetOverlay" onclick="closePriceSheet()"></div>
+<div class="bottom-sheet" id="priceSheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+        <div class="sheet-icon" id="priceSheetIcon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)"><i class="fas fa-tag"></i></div>
+        <div><div class="sheet-title" id="priceSheetTitle">تحديد السعر</div><div class="sheet-sub" id="priceSheetSub">-</div></div>
+        <button class="sheet-close" onclick="closePriceSheet()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="sheet-body" id="priceSheetBody"></div>
+</div>
+
+<!-- Order Details Sheet -->
+<div class="sheet-overlay" id="detailsSheetOverlay" onclick="closeDetailsSheet()"></div>
+<div class="bottom-sheet" id="detailsSheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+        <div class="sheet-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><i class="fas fa-info-circle"></i></div>
+        <div><div class="sheet-title">تفاصيل الطلب</div><div class="sheet-sub" id="detailsSheetSub">-</div></div>
+        <button class="sheet-close" onclick="closeDetailsSheet()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="sheet-body" id="detailsSheetBody"></div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="sheet-overlay" id="confirmOverlay" onclick="closeConfirm()"></div>
+<div class="confirm-modal" id="confirmModal">
+    <div class="confirm-icon" id="confirmIcon"><i class="fas fa-question"></i></div>
+    <div class="confirm-title" id="confirmTitle">تأكيد</div>
+    <div class="confirm-msg" id="confirmMsg">هل أنت متأكد؟</div>
+    <div class="confirm-btns">
+        <button class="btn-confirm btn-yes" id="confirmYesBtn">تأكيد</button>
+        <button class="btn-confirm btn-no" onclick="closeConfirm()">إلغاء</button>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="sheet-overlay" id="successOverlay" onclick="closeSuccess()"></div>
+<div class="success-modal" id="successModal">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <div class="success-title" id="successTitle">تم بنجاح! 🎉</div>
+    <div class="success-msg" id="successMsg">تم تنفيذ العملية</div>
+    <button class="btn-main" onclick="closeSuccess()" style="background:linear-gradient(135deg,#059669,#10b981)"><i class="fas fa-check"></i> تمام</button>
+</div>
+
+<!-- Image Viewer -->
+<div class="image-viewer" id="imageViewer" onclick="closeImageViewer()">
+    <button class="image-viewer-close" onclick="closeImageViewer()"><i class="fas fa-times"></i></button>
+    <img id="imageViewerImg" src="" alt="">
+</div>
+
+<div class="toast" id="toast"><i class="fas fa-info-circle"></i><span id="toastMessage">رسالة</span></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyAR98tJfqxO0_LZT7GRn-peOqQB1PgP6D4",authDomain:"family-4ff2a.firebaseapp.com",databaseURL:"https://family-4ff2a-default-rtdb.firebaseio.com",projectId:"family-4ff2a"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
+
+let pharmacyData=null;
+let selectedArea=null;
+let cachedAreas=[];
+let allOrdersCache={};
+let currentTab='waiting';
+let currentPriceOrderId=null;
+let selectedOrderForPrice=null;
+
+function $id(id){return document.getElementById(id);}
+function showToast(msg,type='info'){
+    const t=$id('toast');
+    if(!t)return;
+    $id('toastMessage').innerText=msg;
+    t.className='toast show '+type;
+    t.querySelector('i').className=type==='success'?'fas fa-check-circle':type==='error'?'fas fa-times-circle':'fas fa-info-circle';
+    clearTimeout(window.toastTimer);
+    window.toastTimer=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+function formatTime(ts){
+    if(!ts)return 'منذ قليل';
+    const d=new Date(ts);
+    let h=d.getHours();
+    const m=String(d.getMinutes()).padStart(2,'0');
+    const ap=h>=12?'مساءً':'صباحاً';
+    h=h%12||12;
+    return `${h}:${m} ${ap}`;
+}
+
+function formatDate(ts){
+    if(!ts)return '-';
+    const d=new Date(ts);
+    return d.toLocaleDateString('ar-EG')+' '+formatTime(ts);
+}
+
+/* ============ Area Picker ============ */
+function openAreaPicker(){
+    const list=$id('areasListContainer');
+    if(!list)return;
+    if(cachedAreas.length===0){
+        list.innerHTML='<div class="empty-state" style="padding:30px 20px"><i class="fas fa-map"></i><p>لا توجد مناطق متاحة حالياً</p></div>';
+    }else{
+        let html='';
+        cachedAreas.forEach(a=>{
+            const isSel=(a===selectedArea);
+            html+=`<div style="padding:14px 16px;background:rgba(10,15,28,.6);border:1px solid ${isSel?'rgba(6,182,212,.6)':'var(--border)'};border-radius:14px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;transition:.2s" onclick="pickArea('${a}')">
+                <div style="width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;background:linear-gradient(135deg,#06b6d4,#0891b2);flex-shrink:0"><i class="fas fa-map-marker-alt"></i></div>
+                <div style="flex:1;font-weight:700;color:#fff;font-size:14px">${a}</div>
+                ${isSel?'<i class="fas fa-check-circle" style="color:#10b981;font-size:18px"></i>':''}
+            </div>`;
+        });
+        list.innerHTML=html;
+    }
+    $id('areaModalOverlay').classList.add('show');
+    const am=$id('areaModal');
+    am.style.opacity='1';
+    am.style.visibility='visible';
+    am.style.transform='translate(-50%,-50%) scale(1)';
+}
+function closeAreaPicker(){
+    $id('areaModalOverlay').classList.remove('show');
+    const am=$id('areaModal');
+    am.style.opacity='0';
+    am.style.visibility='hidden';
+    am.style.transform='translate(-50%,-50%) scale(.85)';
+}
+function pickArea(area){
+    selectedArea=area;
+    const btn=$id('areaTriggerBtn');
+    const label=$id('areaTriggerLabel');
+    if(label)label.innerText='📍 '+area;
+    if(btn)btn.classList.add('filled');
+    closeAreaPicker();
+}
+
+/* ============ Modals ============ */
+let confirmCb=null;
+function showConfirm(icon,title,msg,cb){
+    const i=$id('confirmIcon');
+    if(i)i.innerHTML=`<i class="fas ${icon}"></i>`;
+    $id('confirmTitle').innerText=title;
+    $id('confirmMsg').innerText=msg;
+    confirmCb=cb;
+    $id('confirmOverlay').classList.add('show');
+    $id('confirmModal').classList.add('show');
+    $id('confirmYesBtn').onclick=()=>{closeConfirm();if(confirmCb)confirmCb();};
+}
+function closeConfirm(){
+    $id('confirmOverlay').classList.remove('show');
+    $id('confirmModal').classList.remove('show');
+}
+function showSuccess(title,msg){
+    $id('successTitle').innerText=title;
+    $id('successMsg').innerText=msg;
+    $id('successOverlay').classList.add('show');
+    $id('successModal').classList.add('show');
+}
+function closeSuccess(){
+    $id('successOverlay').classList.remove('show');
+    $id('successModal').classList.remove('show');
+}
+
+/* ============ Splash + Auth ============ */
+setTimeout(()=>{
+    const sp=$id('splashScreen');
+    if(sp)sp.classList.add('hide');
+    const saved=localStorage.getItem('pharmacy_data');
+    if(saved){
+        try{
+            pharmacyData=JSON.parse(saved);
+            startApp();
+        }catch(e){
+            $id('loginSection').style.display='flex';
+            setTimeout(()=>{if(sp)sp.style.display='none';},600);
+        }
+    }else{
+        $id('loginSection').style.display='flex';
+        setTimeout(()=>{if(sp)sp.style.display='none';},600);
+    }
+},2200);
+
+db.ref('areas').on('value',snap=>{
+    cachedAreas=[];
+    snap.forEach(c=>{
+        const d=c.val();
+        if(d&&d.name&&d.active!==false)cachedAreas.push(d.name);
+    });
+});
+
+function pharmacyLogin(){
+    const phone=($id('phoneInput')||{}).value?.trim()||'';
+    const code=($id('codeInput')||{}).value?.trim()||'';
+    if(!selectedArea){return showToast('اختر منطقتك أولاً','error');}
+    if(phone.length<11){return showToast('رقم الموبايل لازم 11 رقم','error');}
+    if(!code){return showToast('اكتب كود الدخول','error');}
+    db.ref(`pharmacies/${selectedArea}`).once('value').then(snap=>{
+        let found=null;
+        snap.forEach(c=>{
+            const p=c.val();
+            if(p&&p.phone===phone&&p.code===code){
+                found={...p,area:selectedArea,key:c.key};
+            }
+        });
+        if(found){
+            pharmacyData=found;
+            localStorage.setItem('pharmacy_data',JSON.stringify(pharmacyData));
+            startApp();
+        }else{
+            showToast('رقم الموبايل أو الكود غلط','error');
+        }
+    }).catch(e=>showToast('خطأ في الاتصال','error'));
+}
+
+function startApp(){
+    $id('loginSection').style.display='none';
+    $id('appSection').style.display='block';
+    const hour=new Date().getHours();
+    const greet=hour<12?'صباح الخير':hour<18?'مساء الخير':'مساء الخير';
+    $id('greetText').innerText=greet+' 👋';
+    $id('displayName').innerText=pharmacyData.name||'صيدلية';
+    $id('userAvatar').innerText='💊';
+    $id('displayArea').innerText=pharmacyData.area||'';
+    listenToOrders();
+}
+
+function openSettings(){
+    showConfirm('fa-sign-out-alt','تسجيل الخروج','هل أنت متأكد إنك عايز تخرج من حسابك؟',()=>{
+        localStorage.removeItem('pharmacy_data');
+        location.reload();
+    });
+}
+
+/* ============ Listen to Orders ============ */
+function listenToOrders(){
+    if(!pharmacyData||!pharmacyData.area)return;
+    db.ref('orders').on('value',snap=>{
+        allOrdersCache={};
+        snap.forEach(c=>{
+            const o=c.val();
+            if(!o)return;
+            // طلبات صيدلية في المنطقة بس
+            const orderType=(o.type||'').trim();
+            if(!orderType.includes('صيدلية'))return;
+            const orderArea=o.customerArea||o.from;
+            if(orderArea!==pharmacyData.area)return;
+            allOrdersCache[c.key]=o;
+        });
+        renderOrders();
+        updateStats();
+    });
+}
+
+/* ============ Tabs ============ */
+function switchTab(tab){
+    currentTab=tab;
+    $id('tabWaiting').classList.toggle('active',tab==='waiting');
+    $id('tabPriced').classList.toggle('active',tab==='priced');
+    $id('tabDone').classList.toggle('active',tab==='done');
+    renderOrders();
+}
+
+function getOrdersByTab(tab){
+    const list=[];
+    Object.keys(allOrdersCache).forEach(id=>{
+        const o=allOrdersCache[id];
+        if(!o)return;
+        const hasPrice=(o.pharmacyPrice && Number(o.pharmacyPrice)>0);
+        if(tab==='waiting' && !hasPrice && o.status!=='completed')list.push({id,...o});
+        if(tab==='priced' && hasPrice && o.status!=='completed')list.push({id,...o});
+        if(tab==='done' && o.status==='completed')list.push({id,...o});
+    });
+    list.sort((a,b)=>{
+        if(currentTab==='done')return (b.completedAt||b.time||0)-(a.completedAt||a.time||0);
+        return (b.time||0)-(a.time||0);
+    });
+    return list;
+}
+
+function updateStats(){
+    const waiting=getOrdersByTab('waiting').length;
+    const priced=getOrdersByTab('priced').length;
+    const done=getOrdersByTab('done').length;
+    $id('statWaiting').innerText=waiting;
+    $id('statPriced').innerText=priced;
+    $id('statDone').innerText=done;
+    $id('cntWaiting').innerText=waiting;
+    $id('cntPriced').innerText=priced;
+    $id('cntDone').innerText=done;
+}
+
+/* ============ Image Viewer ============ */
+function openImageViewer(src){
+    $id('imageViewerImg').src=src;
+    $id('imageViewer').classList.add('show');
+}
+function closeImageViewer(){
+    $id('imageViewer').classList.remove('show');
+    setTimeout(()=>{$id('imageViewerImg').src='';},300);
+}
+
+/* ============ عرض الطلبات ============ */
+function renderOrders(){
+    const c=$id('ordersContainer');
+    if(!c)return;
+    const orders=getOrdersByTab(currentTab);
+    
+    if(orders.length===0){
+        const icons={
+            waiting:'fa-hourglass-half',
+            priced:'fa-check-circle',
+            done:'fa-archive'
+        };
+        const msgs={
+            waiting:'لا توجد طلبات في انتظار التسعير',
+            priced:'لا توجد طلبات تم تسعيرها',
+            done:'لا توجد طلبات مكتملة'
+        };
+        c.innerHTML=`<div class="empty-state"><i class="fas ${icons[currentTab]||'fa-box'}"></i><p>${msgs[currentTab]||'لا توجد طلبات'}</p></div>`;
+        return;
+    }
+    
+    let html='';
+    orders.forEach(o=>{
+        html+=renderOrderCard(o);
+    });
+    c.innerHTML=html;
+}
+
+function renderOrderCard(o){
+    const hasPrice=(o.pharmacyPrice && Number(o.pharmacyPrice)>0);
+    const isDone=o.status==='completed';
+    const custName=o.customerName||o.name||'عميل';
+    const phone=o.customerPhone||o.phone||'';
+    const address=o.to||o.toAddr||'-';
+    const timeStr=o.orderTimeString||formatTime(o.time);
+    const details=o.details||'';
+    
+    let cardClass='order-card';
+    let statusBadge='';
+    if(isDone){
+        cardClass+=' priced';
+        statusBadge=`<span class="order-status-badge status-done"><i class="fas fa-check-double"></i> مكتملة</span>`;
+    }else if(hasPrice){
+        cardClass+=' priced';
+        statusBadge=`<span class="order-status-badge status-priced"><i class="fas fa-check"></i> تم التسعير</span>`;
+    }else{
+        cardClass+=' waiting-price';
+        statusBadge=`<span class="order-status-badge status-waiting"><i class="fas fa-clock"></i> في الانتظار</span>`;
+    }
+    
+    let rxHtml='';
+    if(o.hasRx && o.rxImage){
+        rxHtml=`<div class="order-rx-preview" onclick="openImageViewer('${o.rxImage}')">
+            <img src="${o.rxImage}" alt="الروشتة">
+            <div class="order-rx-preview-label">📷 اضغط لعرض الروشتة كاملة</div>
+        </div>`;
+    }
+    
+    // معلومات الطلب
+    let infoHtml=`
+        <div class="order-detail-row"><i class="fas fa-user"></i><span>العميل: <b>${custName}</b></span></div>
+        <div class="order-detail-row"><i class="fas fa-phone"></i><span>رقم الموبايل: <b style="direction:ltr;display:inline-block">${phone||'-'}</b></span></div>
+        <div class="order-detail-row"><i class="fas fa-map-marker-alt"></i><span>العنوان: <b>${address}</b></span></div>
+    `;
+    
+    if(details){
+        const cleanDetails=details.replace(/<br>/g,' • ').substring(0,100);
+        infoHtml+=`<div class="order-detail-row"><i class="fas fa-list"></i><span>التفاصيل: <b>${cleanDetails}${details.length>100?'...':''}</b></span></div>`;
+    }
+    
+    // لو السعر محدد
+    let priceHtml='';
+    if(hasPrice){
+        priceHtml=`<div class="price-set-box">
+            <div class="price-set-box-label">💰 السعر المحدد</div>
+            <div class="price-set-box-value">${o.pharmacyPrice}</div>
+        </div>`;
+    }
+    
+    // الأزرار
+    let actionsHtml='';
+    if(isDone){
+        actionsHtml=`<button class="btn-action btn-view-price" onclick="viewOrderDetails('${o.id}')">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+        </button>`;
+    }else if(hasPrice){
+        actionsHtml=`
+            <button class="btn-action btn-edit-price" onclick="openPriceSheet('${o.id}')">
+                <i class="fas fa-edit"></i> تعديل السعر
+            </button>
+            <button class="btn-action btn-view-price" onclick="viewOrderDetails('${o.id}')">
+                <i class="fas fa-eye"></i> عرض التفاصيل
+            </button>
+        `;
+    }else{
+        actionsHtml=`<button class="btn-action btn-price" onclick="openPriceSheet('${o.id}')">
+            <i class="fas fa-tag"></i> تحديد السعر
+        </button>`;
+    }
+    
+    return `<div class="${cardClass}">
+        <div class="order-top">
+            <div class="order-info-block">
+                <div class="order-customer">🛒 طلب صيدلية</div>
+                <div class="order-time"><i class="far fa-clock"></i> ${timeStr}</div>
+            </div>
+            ${statusBadge}
+        </div>
+        ${infoHtml}
+        ${rxHtml}
+        ${priceHtml}
+        <div class="order-actions">${actionsHtml}</div>
+    </div>`;
+}
+
+/* ============ فتح شيت تحديد السعر ============ */
+function openPriceSheet(orderId){
+    const o=allOrdersCache[orderId];
+    if(!o){showToast('الطلب مش موجود','error');return;}
+    
+    currentPriceOrderId=orderId;
+    selectedOrderForPrice=o;
+    
+    const custName=o.customerName||o.name||'عميل';
+    const currentPrice=Number(o.pharmacyPrice)||0;
+    const hasPrice=currentPrice>0;
+    
+    $id('priceSheetTitle').innerText=hasPrice?'تعديل السعر':'تحديد السعر';
+    $id('priceSheetSub').innerText=`طلب ${custName}`;
+    
+    let detailsHtml='';
+    if(o.details){
+        detailsHtml=`<div class="field">
+            <label class="field-label"><i class="fas fa-list"></i> تفاصيل الطلب</label>
+            <div style="background:rgba(10,15,28,.6);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:13px;color:#e2e8f0;line-height:1.7">${o.details}</div>
+        </div>`;
+    }
+    
+    let rxHtml='';
+    if(o.hasRx && o.rxImage){
+        rxHtml=`<div class="field">
+            <label class="field-label"><i class="fas fa-file-prescription"></i> صورة الروشتة</label>
+            <div style="border-radius:12px;overflow:hidden;border:1.5px solid rgba(6,182,212,.4);cursor:pointer" onclick="openImageViewer('${o.rxImage}')">
+                <img src="${o.rxImage}" alt="الروشتة" style="width:100%;height:auto;display:block;max-height:300px;object-fit:cover">
+            </div>
+            <div class="helper-text"><i class="fas fa-hand-pointer"></i> اضغط على الصورة لعرضها كاملة</div>
+        </div>`;
+    }
+    
+    let alertHtml='';
+    if(hasPrice){
+        alertHtml=`<div style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);border-radius:12px;padding:10px 14px;font-size:12px;color:#fbbf24;line-height:1.6;margin-bottom:14px">
+            ⚠️ <b>تنبيه:</b> السعر محدد بالفعل (${currentPrice} ج). لو هتعدله، اكتب السعر الجديد.
+        </div>`;
+    }
+    
+    const html=`
+        <div class="summary-box">
+            <div class="summary-row"><span>👤 العميل</span><span>${custName}</span></div>
+            <div class="summary-row"><span>📱 الموبايل</span><span style="direction:ltr;display:inline-block">${o.customerPhone||o.phone||'-'}</span></div>
+            <div class="summary-row"><span>📍 العنوان</span><span>${o.to||o.toAddr||'-'}</span></div>
+            <div class="summary-row"><span>🛵 التوصيل</span><span>${o.deliveryFee||o.price||0} ج</span></div>
+        </div>
+        ${alertHtml}
+        ${rxHtml}
+        ${detailsHtml}
+        <div class="field">
+            <label class="field-label"><i class="fas fa-tag"></i> السعر النهائي للطلب</label>
+            <div class="price-input-wrap">
+                <input type="number" id="priceInput" placeholder="0" min="0" step="0.5" value="${hasPrice?currentPrice:''}" autofocus>
+            </div>
+            <div class="helper-text"><i class="fas fa-info-circle"></i> اكتب سعر الدوا + التوصيل الإجمالي</div>
+        </div>
+        <button class="btn-main" onclick="savePrice()" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
+            <i class="fas fa-check"></i> ${hasPrice?'حفظ التعديل':'حفظ السعر'}
+        </button>
+    `;
+    
+    $id('priceSheetBody').innerHTML=html;
+    $id('priceSheetOverlay').classList.add('show');
+    $id('priceSheet').classList.add('show');
+    
+    setTimeout(()=>{const inp=$id('priceInput');if(inp)inp.focus();},400);
+}
+
+function closePriceSheet(){
+    $id('priceSheetOverlay').classList.remove('show');
+    $id('priceSheet').classList.remove('show');
+    currentPriceOrderId=null;
+    selectedOrderForPrice=null;
+}
+
+/* ============ حفظ السعر ============ */
+function savePrice(){
+    if(!currentPriceOrderId){showToast('خطأ','error');return;}
+    const inp=$id('priceInput');
+    const price=Number(inp?.value)||0;
+    if(price<=0){showToast('اكتب سعر صحيح','error');return;}
+    
+    const o=allOrdersCache[currentPriceOrderId];
+    if(!o){showToast('الطلب مش موجود','error');return;}
+    
+    // لو السائق استلم الطلب، ما ينفعش نعدل
+    const orderStatus=o.status||'';
+    if(orderStatus==='active' && o.driverAcceptedAt && (Date.now()-o.driverAcceptedAt)>5*60*1000){
+        showToast('السائق استلم الطلب، مينفعش تعدل السعر','error');
+        return;
+    }
+    
+    showConfirm('fa-tag','تأكيد السعر',`هتحفظ السعر <b>${price} ج</b> للطلب ده؟`,()=>{
+        db.ref('orders/'+currentPriceOrderId).update({
+            pharmacyPrice: price,
+            pharmacyPriceSetAt: Date.now(),
+            pharmacyId: pharmacyData.key,
+            pharmacyName: pharmacyData.name,
+            pharmacyPhone: pharmacyData.phone
+        }).then(()=>{
+            closePriceSheet();
+            showSuccess('✅ تم حفظ السعر!',`السعر ${price} ج اتحفظ وظهر للزبون والسائق.`);
+        }).catch(e=>{
+            showToast('خطأ في الحفظ','error');
+            console.log(e);
+        });
+    });
+}
+
+/* ============ عرض تفاصيل الطلب ============ */
+function viewOrderDetails(orderId){
+    const o=allOrdersCache[orderId];
+    if(!o){showToast('الطلب مش موجود','error');return;}
+    
+    const custName=o.customerName||o.name||'عميل';
+    const phone=o.customerPhone||o.phone||'';
+    const address=o.to||o.toAddr||'-';
+    const timeStr=o.orderTimeString||formatTime(o.time);
+    
+    $id('detailsSheetSub').innerText=`طلب ${custName}`;
+    
+    let rxHtml='';
+    if(o.hasRx && o.rxImage){
+        rxHtml=`<div class="field">
+            <label class="field-label"><i class="fas fa-file-prescription"></i> صورة الروشتة</label>
+            <div style="border-radius:12px;overflow:hidden;border:1.5px solid rgba(6,182,212,.4);cursor:pointer" onclick="openImageViewer('${o.rxImage}')">
+                <img src="${o.rxImage}" alt="الروشتة" style="width:100%;height:auto;display:block;max-height:300px;object-fit:cover">
+            </div>
+        </div>`;
+    }
+    
+    let detailsHtml='';
+    if(o.details){
+        detailsHtml=`<div class="field">
+            <label class="field-label"><i class="fas fa-list"></i> تفاصيل الطلب</label>
+            <div style="background:rgba(10,15,28,.6);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:13px;color:#e2e8f0;line-height:1.7">${o.details}</div>
+        </div>`;
+    }
+    
+    const price=Number(o.pharmacyPrice)||0;
+    const deliveryFee=Number(o.deliveryFee)||0;
+    
+    let driverHtml='';
+    if(o.driverName){
+        driverHtml=`<div class="summary-row"><span>🛵 السائق</span><span>${o.driverName}</span></div>`;
+    }
+    
+    let statusHtml='';
+    if(o.status==='completed'){
+        statusHtml=`<div style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);border-radius:12px;padding:12px;text-align:center;color:#34d399;font-weight:900;font-size:13px;margin-bottom:14px"><i class="fas fa-check-double"></i> تم تسليم الطلب</div>`;
+    }else if(price>0){
+        statusHtml=`<div style="background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.4);border-radius:12px;padding:12px;text-align:center;color:#22d3ee;font-weight:900;font-size:13px;margin-bottom:14px"><i class="fas fa-motorcycle"></i> في الطريق للعميل</div>`;
+    }
+    
+    const html=`
+        ${statusHtml}
+        <div class="summary-box">
+            <div class="summary-row"><span>👤 العميل</span><span>${custName}</span></div>
+            <div class="summary-row"><span>📱 الموبايل</span><span style="direction:ltr;display:inline-block">${phone||'-'}</span></div>
+            <div class="summary-row"><span>📍 العنوان</span><span>${address}</span></div>
+            <div class="summary-row"><span>⏰ الوقت</span><span>${timeStr}</span></div>
+            ${driverHtml}
+            ${price>0?`<div class="summary-row"><span>💰 سعر الطلب</span><span style="color:#34d399;font-weight:900">${price} ج</span></div>`:''}
+            ${deliveryFee>0?`<div class="summary-row"><span>🛵 سعر التوصيل</span><span>${deliveryFee} ج</span></div>`:''}
+        </div>
+        ${rxHtml}
+        ${detailsHtml}
+        ${price>0&&o.status!=='completed'?`<button class="btn-main" onclick="closeDetailsSheet();setTimeout(()=>openPriceSheet('${orderId}'),300)" style="background:linear-gradient(135deg,#f59e0b,#d97706);margin-top:8px">
+            <i class="fas fa-edit"></i> تعديل السعر
+        </button>`:''}
+    `;
+    
+    $id('detailsSheetBody').innerHTML=html;
+    $id('detailsSheetOverlay').classList.add('show');
+    $id('detailsSheet').classList.add('show');
+}
+
+function closeDetailsSheet(){
+    $id('detailsSheetOverlay').classList.remove('show');
+    $id('detailsSheet').classList.remove('show');
+}
+
+/* ============ تحديث عند الرجوع للتطبيق ============ */
+document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden){
+        renderOrders();
+        updateStats();
+    }
+});
+
+/* ============ تسجيل الخروج ============ */
+window.logout=function(){
+    showConfirm('fa-sign-out-alt','تسجيل الخروج','هل أنت متأكد إنك عايز تخرج من حسابك؟',()=>{
+        localStorage.removeItem('pharmacy_data');
+        location.reload();
+    });
+};
+</script>
+</body>
+</html>
+</script>
