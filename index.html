@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>صيدلية مشوار</title>
 <meta name="theme-color" content="#06b6d4">
-<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3063/3063822.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="صيدلية مشوار">
+<meta name="application-name" content="صيدلية مشوار">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="./logo.png">
+<link rel="icon" type="image/png" href="./logo.png">
+<link rel="shortcut icon" type="image/png" href="./logo.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -56,7 +64,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 .section-title i{width:28px;height:28px;background:linear-gradient(135deg,rgba(6,182,212,.2),rgba(139,92,246,.15));border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:13px}
 .section-count{background:rgba(245,158,11,.15);color:#fbbf24;padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:900;border:1px solid rgba(245,158,11,.3)}
 
-/* ============ ORDER CARDS ============ */
 .order-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden;transition:.2s}
 .order-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:#06b6d4}
 .order-card.waiting-price{border-color:rgba(245,158,11,.5);animation:pulseWait 2s infinite}
@@ -87,19 +94,16 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 .price-set-box-value{font-size:22px;font-weight:900;color:#34d399}
 .price-set-box-value::after{content:' ج';font-size:12px;color:var(--text-muted);font-weight:700}
 
-/* ============ TABS ============ */
 .tabs-bar{display:flex;gap:6px;background:rgba(10,15,28,.6);border:1px solid var(--border);border-radius:14px;padding:5px;margin:0 20px 15px}
 .tab-btn{flex:1;padding:10px 8px;border:none;background:transparent;color:var(--text-muted);font-weight:700;font-size:12px;cursor:pointer;border-radius:10px;font-family:'Cairo',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
 .tab-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff}
 .tab-btn .tab-count{background:rgba(255,255,255,.25);color:#fff;font-size:10px;font-weight:900;padding:2px 6px;border-radius:8px;min-width:16px;text-align:center}
 .tab-btn:not(.active) .tab-count{background:rgba(6,182,212,.2);color:#67e8f9}
 
-/* ============ EMPTY ============ */
 .empty-state{text-align:center;padding:60px 30px;color:var(--text-muted)}
 .empty-state i{font-size:60px;color:rgba(6,182,212,.3);margin-bottom:15px;display:block}
 .empty-state p{font-size:13px;line-height:1.8}
 
-/* ============ MODAL ============ */
 .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);z-index:5000;opacity:0;visibility:hidden;transition:.3s}
 .sheet-overlay.show{opacity:1;visibility:visible}
 .bottom-sheet{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(30,40,60,.98),rgba(15,23,42,1));border-top-left-radius:32px;border-top-right-radius:32px;border-top:1px solid rgba(6,182,212,.4);z-index:5001;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);max-height:92vh;overflow-y:auto;padding:12px 0 20px;max-width:600px;margin:0 auto}
@@ -122,15 +126,13 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 .price-input-wrap input{padding-left:50px;text-align:center;font-size:24px;font-weight:900;color:var(--success)}
 .price-input-wrap::after{content:'ج';position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:14px;font-weight:700}
 
-/* ============ ORDER SUMMARY ============ */
 .summary-box{background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(139,92,246,.1));border:1.5px solid rgba(6,182,212,.4);border-radius:14px;padding:14px;margin-bottom:14px}
 .summary-row{display:flex;justify-content:space-between;font-size:12.5px;padding:6px 0;color:var(--text-soft);border-bottom:1px dashed rgba(255,255,255,.1)}
 .summary-row:last-child{border-bottom:none;font-size:15px;font-weight:900;color:#fff;padding-top:12px;margin-top:6px}
 .summary-row:last-child span:last-child{color:var(--success);font-size:20px}
 .summary-row:last-child span:last-child::after{content:' ج';font-size:11px}
 
-/* ============ CONFIRM ============ */
-.confirm-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:linear-gradient(160deg,rgba(30,40,60,.98),rgba(15,23,42,1));border:1.5px solid var(--border-active);border-radius:24px;z-index:5001;width:calc(100% - 40px);max-width:400px;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 60px rgba(0,0,0,.6);padding:25px 20px;text-align:center}
+.confirm-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:linear-gradient(160deg,rgba(30,40,60,.98),rgba(15,23,42,1));border:1.5px solid rgba(6,182,212,.4);border-radius:24px;z-index:5001;width:calc(100% - 40px);max-width:400px;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 60px rgba(0,0,0,.6);padding:25px 20px;text-align:center}
 .confirm-modal.show{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
 .confirm-icon{width:70px;height:70px;border-radius:24px;background:linear-gradient(135deg,var(--warning),#d97706);display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;margin:0 auto 18px}
 .confirm-title{font-size:19px;font-weight:900;color:#fff;margin-bottom:10px}
@@ -140,7 +142,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 .btn-yes{background:linear-gradient(135deg,#059669,#10b981)}
 .btn-no{background:rgba(255,255,255,.1)}
 
-/* ============ SUCCESS ============ */
 .success-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:linear-gradient(160deg,rgba(30,40,60,.98),rgba(15,23,42,1));border:1.5px solid rgba(16,185,129,.5);border-radius:24px;z-index:5001;width:calc(100% - 40px);max-width:380px;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 60px rgba(0,0,0,.6);padding:25px 20px;text-align:center}
 .success-modal.show{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
 .success-icon{width:80px;height:80px;border-radius:26px;background:linear-gradient(135deg,var(--success),#059669);display:flex;align-items:center;justify-content:center;font-size:38px;color:#fff;margin:0 auto 18px;animation:popIcon .6s cubic-bezier(.16,1,.3,1)}
@@ -148,7 +149,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 .success-title{font-size:20px;font-weight:900;color:#fff;margin-bottom:8px}
 .success-msg{font-size:13px;color:var(--text-soft);line-height:1.8;margin-bottom:22px}
 
-/* ============ TOAST ============ */
 .toast{position:fixed;bottom:30px;left:20px;right:20px;padding:14px 20px;background:linear-gradient(135deg,rgba(30,41,59,.98),rgba(15,23,42,.98));border-radius:16px;color:#fff;font-size:13px;font-weight:700;box-shadow:0 20px 40px rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;gap:12px;transform:translateY(200px);opacity:0;transition:all .4s cubic-bezier(.16,1,.3,1);border:1px solid var(--border)}
 .toast.show{transform:translateY(0);opacity:1}
 .toast i{font-size:18px}
@@ -158,7 +158,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 .toast.error i{color:var(--danger)}
 .toast.info i{color:var(--primary)}
 
-/* ============ IMAGE VIEWER ============ */
 .image-viewer{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:8px;opacity:0;visibility:hidden;transition:all .3s}
 .image-viewer.show{opacity:1;visibility:visible}
 .image-viewer img{max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.8);display:block;width:100%;object-fit:contain}
@@ -166,6 +165,27 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 .image-viewer-close:active{transform:scale(.92)}
 
 .hidden{display:none!important}
+
+/* ══════════ INSTALL BANNER ══════════ */
+.install-banner-top{position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#06b6d4,#8b5cf6);z-index:99999;padding:0;transform:translateY(-100%);transition:transform .5s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 30px rgba(6,182,212,.5);border-bottom:2px solid rgba(255,255,255,.2)}
+.install-banner-top.show{transform:translateY(0)}
+.install-banner-inner{max-width:600px;margin:0 auto;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.install-banner-icon{width:44px;height:44px;border-radius:13px;background:rgba(255,255,255,.9);border:2px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:installPulse 2s infinite;color:#0891b2;font-size:20px}
+@keyframes installPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.install-banner-text{flex:1;min-width:0}
+.install-banner-title{font-size:13px;font-weight:900;color:#fff;margin-bottom:2px}
+.install-banner-sub{font-size:10.5px;color:rgba(255,255,255,.9);font-weight:600}
+.install-banner-btn{padding:9px 14px;background:#fff;border:none;border-radius:11px;color:#0891b2;font-weight:900;font-size:12.5px;cursor:pointer;font-family:'Cairo',sans-serif;flex-shrink:0;box-shadow:0 6px 15px rgba(0,0,0,.2);transition:.2s;display:flex;align-items:center;gap:6px;justify-content:center;min-width:80px}
+.install-banner-btn:active{transform:scale(.95)}
+.install-banner-btn.loading{pointer-events:none;opacity:.85}
+.install-banner-close{width:30px;height:30px;border-radius:9px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.2);color:#fff;cursor:pointer;font-size:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.install-banner-close:active{transform:scale(.9)}
+@media(max-width:360px){
+    .install-banner-icon{width:38px;height:38px;font-size:17px}
+    .install-banner-title{font-size:11.5px}
+    .install-banner-sub{font-size:9.5px}
+    .install-banner-btn{padding:8px 11px;font-size:11px;min-width:70px}
+}
 
 @media(min-width:500px){.stats-row{grid-template-columns:repeat(3,1fr)}}
 </style>
@@ -195,7 +215,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
 </div>
 
 <div id="appSection" style="display:none">
-    <!-- Home Page -->
     <div class="page active" id="page-home">
         <div class="app-header">
             <div class="header-row">
@@ -239,7 +258,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
     </div>
 </div>
 
-<!-- Area Picker Modal -->
 <div class="sheet-overlay" id="areaModalOverlay" onclick="closeAreaPicker()"></div>
 <div class="center-modal" id="areaModal" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:linear-gradient(160deg,rgba(30,40,60,.98),rgba(15,23,42,1));border:1.5px solid rgba(6,182,212,.4);border-radius:24px;z-index:5001;width:calc(100% - 40px);max-width:420px;max-height:80vh;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 60px rgba(0,0,0,.6)">
     <div class="sheet-header" style="padding:18px 20px 14px;border-bottom:1px solid var(--border)">
@@ -250,7 +268,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
     <div class="sheet-body" id="areasListContainer" style="padding:14px;overflow-y:auto;max-height:60vh"></div>
 </div>
 
-<!-- Price Input Sheet -->
 <div class="sheet-overlay" id="priceSheetOverlay" onclick="closePriceSheet()"></div>
 <div class="bottom-sheet" id="priceSheet">
     <div class="sheet-handle"></div>
@@ -262,7 +279,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
     <div class="sheet-body" id="priceSheetBody"></div>
 </div>
 
-<!-- Order Details Sheet -->
 <div class="sheet-overlay" id="detailsSheetOverlay" onclick="closeDetailsSheet()"></div>
 <div class="bottom-sheet" id="detailsSheet">
     <div class="sheet-handle"></div>
@@ -274,7 +290,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
     <div class="sheet-body" id="detailsSheetBody"></div>
 </div>
 
-<!-- Confirm Modal -->
 <div class="sheet-overlay" id="confirmOverlay" onclick="closeConfirm()"></div>
 <div class="confirm-modal" id="confirmModal">
     <div class="confirm-icon" id="confirmIcon"><i class="fas fa-question"></i></div>
@@ -286,7 +301,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
     </div>
 </div>
 
-<!-- Success Modal -->
 <div class="sheet-overlay" id="successOverlay" onclick="closeSuccess()"></div>
 <div class="success-modal" id="successModal">
     <div class="success-icon"><i class="fas fa-check"></i></div>
@@ -295,7 +309,6 @@ body{background:#090d16;background-image:radial-gradient(circle at 10% 0%,rgba(6
     <button class="btn-main" onclick="closeSuccess()" style="background:linear-gradient(135deg,#059669,#10b981)"><i class="fas fa-check"></i> تمام</button>
 </div>
 
-<!-- Image Viewer -->
 <div class="image-viewer" id="imageViewer" onclick="closeImageViewer()">
     <button class="image-viewer-close" onclick="closeImageViewer()"><i class="fas fa-times"></i></button>
     <img id="imageViewerImg" src="" alt="">
@@ -339,13 +352,6 @@ function formatTime(ts){
     return `${h}:${m} ${ap}`;
 }
 
-function formatDate(ts){
-    if(!ts)return '-';
-    const d=new Date(ts);
-    return d.toLocaleDateString('ar-EG')+' '+formatTime(ts);
-}
-
-/* ============ Area Picker ============ */
 function openAreaPicker(){
     const list=$id('areasListContainer');
     if(!list)return;
@@ -385,7 +391,6 @@ function pickArea(area){
     closeAreaPicker();
 }
 
-/* ============ Modals ============ */
 let confirmCb=null;
 function showConfirm(icon,title,msg,cb){
     const i=$id('confirmIcon');
@@ -412,7 +417,6 @@ function closeSuccess(){
     $id('successModal').classList.remove('show');
 }
 
-/* ============ Splash + Auth ============ */
 setTimeout(()=>{
     const sp=$id('splashScreen');
     if(sp)sp.classList.add('hide');
@@ -482,7 +486,6 @@ function openSettings(){
     });
 }
 
-/* ============ Listen to Orders ============ */
 function listenToOrders(){
     if(!pharmacyData||!pharmacyData.area)return;
     db.ref('orders').on('value',snap=>{
@@ -490,7 +493,6 @@ function listenToOrders(){
         snap.forEach(c=>{
             const o=c.val();
             if(!o)return;
-            // طلبات صيدلية في المنطقة بس
             const orderType=(o.type||'').trim();
             if(!orderType.includes('صيدلية'))return;
             const orderArea=o.customerArea||o.from;
@@ -502,7 +504,6 @@ function listenToOrders(){
     });
 }
 
-/* ============ Tabs ============ */
 function switchTab(tab){
     currentTab=tab;
     $id('tabWaiting').classList.toggle('active',tab==='waiting');
@@ -540,7 +541,6 @@ function updateStats(){
     $id('cntDone').innerText=done;
 }
 
-/* ============ Image Viewer ============ */
 function openImageViewer(src){
     $id('imageViewerImg').src=src;
     $id('imageViewer').classList.add('show');
@@ -550,12 +550,11 @@ function closeImageViewer(){
     setTimeout(()=>{$id('imageViewerImg').src='';},300);
 }
 
-/* ============ عرض الطلبات ============ */
 function renderOrders(){
     const c=$id('ordersContainer');
     if(!c)return;
     const orders=getOrdersByTab(currentTab);
-    
+
     if(orders.length===0){
         const icons={
             waiting:'fa-hourglass-half',
@@ -570,7 +569,7 @@ function renderOrders(){
         c.innerHTML=`<div class="empty-state"><i class="fas ${icons[currentTab]||'fa-box'}"></i><p>${msgs[currentTab]||'لا توجد طلبات'}</p></div>`;
         return;
     }
-    
+
     let html='';
     orders.forEach(o=>{
         html+=renderOrderCard(o);
@@ -586,7 +585,7 @@ function renderOrderCard(o){
     const address=o.to||o.toAddr||'-';
     const timeStr=o.orderTimeString||formatTime(o.time);
     const details=o.details||'';
-    
+
     let cardClass='order-card';
     let statusBadge='';
     if(isDone){
@@ -599,7 +598,7 @@ function renderOrderCard(o){
         cardClass+=' waiting-price';
         statusBadge=`<span class="order-status-badge status-waiting"><i class="fas fa-clock"></i> في الانتظار</span>`;
     }
-    
+
     let rxHtml='';
     if(o.hasRx && o.rxImage){
         rxHtml=`<div class="order-rx-preview" onclick="openImageViewer('${o.rxImage}')">
@@ -607,20 +606,18 @@ function renderOrderCard(o){
             <div class="order-rx-preview-label">📷 اضغط لعرض الروشتة كاملة</div>
         </div>`;
     }
-    
-    // معلومات الطلب
+
     let infoHtml=`
         <div class="order-detail-row"><i class="fas fa-user"></i><span>العميل: <b>${custName}</b></span></div>
         <div class="order-detail-row"><i class="fas fa-phone"></i><span>رقم الموبايل: <b style="direction:ltr;display:inline-block">${phone||'-'}</b></span></div>
         <div class="order-detail-row"><i class="fas fa-map-marker-alt"></i><span>العنوان: <b>${address}</b></span></div>
     `;
-    
+
     if(details){
         const cleanDetails=details.replace(/<br>/g,' • ').substring(0,100);
         infoHtml+=`<div class="order-detail-row"><i class="fas fa-list"></i><span>التفاصيل: <b>${cleanDetails}${details.length>100?'...':''}</b></span></div>`;
     }
-    
-    // لو السعر محدد
+
     let priceHtml='';
     if(hasPrice){
         priceHtml=`<div class="price-set-box">
@@ -628,8 +625,7 @@ function renderOrderCard(o){
             <div class="price-set-box-value">${o.pharmacyPrice}</div>
         </div>`;
     }
-    
-    // الأزرار
+
     let actionsHtml='';
     if(isDone){
         actionsHtml=`<button class="btn-action btn-view-price" onclick="viewOrderDetails('${o.id}')">
@@ -649,7 +645,7 @@ function renderOrderCard(o){
             <i class="fas fa-tag"></i> تحديد السعر
         </button>`;
     }
-    
+
     return `<div class="${cardClass}">
         <div class="order-top">
             <div class="order-info-block">
@@ -665,21 +661,20 @@ function renderOrderCard(o){
     </div>`;
 }
 
-/* ============ فتح شيت تحديد السعر ============ */
 function openPriceSheet(orderId){
     const o=allOrdersCache[orderId];
     if(!o){showToast('الطلب مش موجود','error');return;}
-    
+
     currentPriceOrderId=orderId;
     selectedOrderForPrice=o;
-    
+
     const custName=o.customerName||o.name||'عميل';
     const currentPrice=Number(o.pharmacyPrice)||0;
     const hasPrice=currentPrice>0;
-    
+
     $id('priceSheetTitle').innerText=hasPrice?'تعديل السعر':'تحديد السعر';
     $id('priceSheetSub').innerText=`طلب ${custName}`;
-    
+
     let detailsHtml='';
     if(o.details){
         detailsHtml=`<div class="field">
@@ -687,7 +682,7 @@ function openPriceSheet(orderId){
             <div style="background:rgba(10,15,28,.6);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:13px;color:#e2e8f0;line-height:1.7">${o.details}</div>
         </div>`;
     }
-    
+
     let rxHtml='';
     if(o.hasRx && o.rxImage){
         rxHtml=`<div class="field">
@@ -698,14 +693,14 @@ function openPriceSheet(orderId){
             <div class="helper-text"><i class="fas fa-hand-pointer"></i> اضغط على الصورة لعرضها كاملة</div>
         </div>`;
     }
-    
+
     let alertHtml='';
     if(hasPrice){
         alertHtml=`<div style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);border-radius:12px;padding:10px 14px;font-size:12px;color:#fbbf24;line-height:1.6;margin-bottom:14px">
             ⚠️ <b>تنبيه:</b> السعر محدد بالفعل (${currentPrice} ج). لو هتعدله، اكتب السعر الجديد.
         </div>`;
     }
-    
+
     const html=`
         <div class="summary-box">
             <div class="summary-row"><span>👤 العميل</span><span>${custName}</span></div>
@@ -727,11 +722,11 @@ function openPriceSheet(orderId){
             <i class="fas fa-check"></i> ${hasPrice?'حفظ التعديل':'حفظ السعر'}
         </button>
     `;
-    
+
     $id('priceSheetBody').innerHTML=html;
     $id('priceSheetOverlay').classList.add('show');
     $id('priceSheet').classList.add('show');
-    
+
     setTimeout(()=>{const inp=$id('priceInput');if(inp)inp.focus();},400);
 }
 
@@ -742,23 +737,21 @@ function closePriceSheet(){
     selectedOrderForPrice=null;
 }
 
-/* ============ حفظ السعر ============ */
 function savePrice(){
     if(!currentPriceOrderId){showToast('خطأ','error');return;}
     const inp=$id('priceInput');
     const price=Number(inp?.value)||0;
     if(price<=0){showToast('اكتب سعر صحيح','error');return;}
-    
+
     const o=allOrdersCache[currentPriceOrderId];
     if(!o){showToast('الطلب مش موجود','error');return;}
-    
-    // لو السائق استلم الطلب، ما ينفعش نعدل
+
     const orderStatus=o.status||'';
     if(orderStatus==='active' && o.driverAcceptedAt && (Date.now()-o.driverAcceptedAt)>5*60*1000){
         showToast('السائق استلم الطلب، مينفعش تعدل السعر','error');
         return;
     }
-    
+
     showConfirm('fa-tag','تأكيد السعر',`هتحفظ السعر <b>${price} ج</b> للطلب ده؟`,()=>{
         db.ref('orders/'+currentPriceOrderId).update({
             pharmacyPrice: price,
@@ -776,18 +769,17 @@ function savePrice(){
     });
 }
 
-/* ============ عرض تفاصيل الطلب ============ */
 function viewOrderDetails(orderId){
     const o=allOrdersCache[orderId];
     if(!o){showToast('الطلب مش موجود','error');return;}
-    
+
     const custName=o.customerName||o.name||'عميل';
     const phone=o.customerPhone||o.phone||'';
     const address=o.to||o.toAddr||'-';
     const timeStr=o.orderTimeString||formatTime(o.time);
-    
+
     $id('detailsSheetSub').innerText=`طلب ${custName}`;
-    
+
     let rxHtml='';
     if(o.hasRx && o.rxImage){
         rxHtml=`<div class="field">
@@ -797,7 +789,7 @@ function viewOrderDetails(orderId){
             </div>
         </div>`;
     }
-    
+
     let detailsHtml='';
     if(o.details){
         detailsHtml=`<div class="field">
@@ -805,22 +797,22 @@ function viewOrderDetails(orderId){
             <div style="background:rgba(10,15,28,.6);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:13px;color:#e2e8f0;line-height:1.7">${o.details}</div>
         </div>`;
     }
-    
+
     const price=Number(o.pharmacyPrice)||0;
     const deliveryFee=Number(o.deliveryFee)||0;
-    
+
     let driverHtml='';
     if(o.driverName){
         driverHtml=`<div class="summary-row"><span>🛵 السائق</span><span>${o.driverName}</span></div>`;
     }
-    
+
     let statusHtml='';
     if(o.status==='completed'){
         statusHtml=`<div style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);border-radius:12px;padding:12px;text-align:center;color:#34d399;font-weight:900;font-size:13px;margin-bottom:14px"><i class="fas fa-check-double"></i> تم تسليم الطلب</div>`;
     }else if(price>0){
         statusHtml=`<div style="background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.4);border-radius:12px;padding:12px;text-align:center;color:#22d3ee;font-weight:900;font-size:13px;margin-bottom:14px"><i class="fas fa-motorcycle"></i> في الطريق للعميل</div>`;
     }
-    
+
     const html=`
         ${statusHtml}
         <div class="summary-box">
@@ -838,7 +830,7 @@ function viewOrderDetails(orderId){
             <i class="fas fa-edit"></i> تعديل السعر
         </button>`:''}
     `;
-    
+
     $id('detailsSheetBody').innerHTML=html;
     $id('detailsSheetOverlay').classList.add('show');
     $id('detailsSheet').classList.add('show');
@@ -849,7 +841,6 @@ function closeDetailsSheet(){
     $id('detailsSheet').classList.remove('show');
 }
 
-/* ============ تحديث عند الرجوع للتطبيق ============ */
 document.addEventListener('visibilitychange',()=>{
     if(!document.hidden){
         renderOrders();
@@ -857,14 +848,209 @@ document.addEventListener('visibilitychange',()=>{
     }
 });
 
-/* ============ تسجيل الخروج ============ */
 window.logout=function(){
     showConfirm('fa-sign-out-alt','تسجيل الخروج','هل أنت متأكد إنك عايز تخرج من حسابك؟',()=>{
         localStorage.removeItem('pharmacy_data');
         location.reload();
     });
 };
+
+/* ══════════ PWA SERVICE WORKER ══════════ */
+if('serviceWorker' in navigator && location.protocol === 'https:'){
+    window.addEventListener('load',()=>{
+        navigator.serviceWorker.register('service-worker.js')
+            .then(reg=>console.log('✅ SW Registered'))
+            .catch(err=>console.log('SW Error:',err.message));
+    });
+}
+
+/* ══════════ PWA INSTALL PROMPT ══════════ */
+let deferredPrompt=null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallButton();
+});
+
+if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            if(!localStorage.getItem('pharmacy_install_dismissed')){
+                showInstallButton();
+            }
+        }, 3000);
+    });
+}
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if(!deferredPrompt && !$id('installBanner')){
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+            if(!isStandalone && !localStorage.getItem('pharmacy_install_dismissed')){
+                showInstallButton();
+            }
+        }
+    }, 2500);
+});
+
+function showInstallButton(){
+    if($id('installBanner')) return;
+    if(localStorage.getItem('pharmacy_install_dismissed') === 'true') return;
+    if(window.matchMedia('(display-mode: standalone)').matches) return;
+    if(window.navigator.standalone === true) return;
+    
+    const banner = document.createElement('div');
+    banner.id = 'installBanner';
+    banner.className = 'install-banner-top';
+    banner.innerHTML = `
+        <div class="install-banner-inner">
+            <div class="install-banner-icon"><i class="fas fa-prescription-bottle"></i></div>
+            <div class="install-banner-text">
+                <div class="install-banner-title">📱 ثبّت تطبيق صيدلية مشوار</div>
+                <div class="install-banner-sub">افتحه بضغطة واحدة من الشاشة</div>
+            </div>
+            <button class="install-banner-btn" onclick="installPWA()">
+                <i class="fas fa-download"></i> ثبّت
+            </button>
+            <button class="install-banner-close" onclick="closeInstallBanner()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    document.body.appendChild(banner);
+    setTimeout(() => { banner.classList.add('show'); }, 100);
+}
+
+function installPWA(){
+    const btn = document.querySelector('.install-banner-btn');
+    
+    if(deferredPrompt){
+        if(btn){
+            btn.classList.add('loading');
+            btn.innerHTML = 'جاري التثبيت';
+        }
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choice) => {
+            if(choice.outcome === 'accepted'){
+                showToast('✅ تم تثبيت التطبيق!', 'success');
+                const b = $id('installBanner');
+                if(b){
+                    b.classList.remove('show');
+                    setTimeout(() => b.remove(), 500);
+                }
+                localStorage.setItem('pharmacy_install_dismissed', 'true');
+            } else {
+                showToast('تم إلغاء التثبيت', 'info');
+                if(btn){
+                    btn.classList.remove('loading');
+                    btn.innerHTML = '<i class="fas fa-download"></i> ثبّت';
+                }
+            }
+            deferredPrompt = null;
+        });
+        return;
+    }
+    
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if(isIOS){
+        showIOSSmartInstall();
+        return;
+    }
+    
+    showSmartFallback();
+}
+
+function showIOSSmartInstall(){
+    const topToast = document.createElement('div');
+    topToast.id = 'iosTopToast';
+    topToast.style.cssText = `
+        position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);
+        background:linear-gradient(135deg,#06b6d4,#8b5cf6);color:#fff;
+        padding:14px 22px;border-radius:16px;font-size:13.5px;font-weight:900;
+        box-shadow:0 15px 40px rgba(6,182,212,.6);z-index:99999;
+        text-align:center;max-width:340px;line-height:1.7;
+        opacity:0;transition:all .4s cubic-bezier(.16,1,.3,1);
+        border:1px solid rgba(255,255,255,.25);
+    `;
+    topToast.innerHTML = `
+        <div style="font-size:14px;margin-bottom:6px">📱 ضغطة واحدة بس!</div>
+        <div style="font-size:12.5px;opacity:.95">اضغط زر <b>المشاركة</b> 
+            <i class="fas fa-share-square" style="font-size:14px"></i>
+        </div>
+        <div style="font-size:12px;opacity:.9;margin-top:4px">في شريط Safari تحت</div>
+    `;
+    document.body.appendChild(topToast);
+    setTimeout(() => {
+        topToast.style.opacity = '1';
+        topToast.style.transform = 'translateX(-50%) translateY(0)';
+    }, 50);
+    
+    const arrow = document.createElement('div');
+    arrow.id = 'iosArrow';
+    arrow.style.cssText = `
+        position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+        z-index:99999;color:#06b6d4;font-size:32px;
+        animation:iosArrowBounce 1.2s infinite;
+        text-shadow:0 0 20px rgba(6,182,212,.8);
+        pointer-events:none;
+    `;
+    arrow.innerHTML = '<i class="fas fa-arrow-down"></i>';
+    document.body.appendChild(arrow);
+    
+    const arrowStyle = document.createElement('style');
+    arrowStyle.textContent = `@keyframes iosArrowBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-12px)}}`;
+    document.head.appendChild(arrowStyle);
+    
+    setTimeout(() => {
+        if(topToast.parentNode){
+            topToast.style.opacity = '0';
+            topToast.style.transform = 'translateX(-50%) translateY(-20px)';
+            setTimeout(() => topToast.remove(), 400);
+        }
+        if(arrow.parentNode) arrow.remove();
+    }, 6000);
+}
+
+function showSmartFallback(){
+    showToast('افتح القائمة (⋮) واختر "تثبيت التطبيق"', 'info');
+    setTimeout(() => {
+        const hint = document.createElement('div');
+        hint.style.cssText = `
+            position:fixed;bottom:100px;left:20px;
+            background:linear-gradient(135deg,#06b6d4,#8b5cf6);
+            color:#fff;padding:10px 14px;border-radius:14px;
+            font-size:12px;font-weight:800;z-index:99999;
+            box-shadow:0 10px 30px rgba(6,182,212,.5);
+            animation:hintPulse 1.5s infinite;
+        `;
+        hint.innerHTML = '<i class="fas fa-ellipsis-v"></i> القائمة هنا';
+        document.body.appendChild(hint);
+        const st = document.createElement('style');
+        st.textContent = '@keyframes hintPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}';
+        document.head.appendChild(st);
+        setTimeout(() => hint.remove(), 4000);
+    }, 1000);
+}
+
+function closeInstallBanner(){
+    const b = $id('installBanner');
+    if(b){
+        b.classList.remove('show');
+        setTimeout(() => b.remove(), 500);
+    }
+}
+
+window.addEventListener('appinstalled', () => {
+    showToast('🎉 تم تثبيت التطبيق!', 'success');
+    const b = $id('installBanner');
+    if(b){
+        b.classList.remove('show');
+        setTimeout(() => b.remove(), 500);
+    }
+    localStorage.setItem('pharmacy_install_dismissed', 'true');
+    deferredPrompt = null;
+});
 </script>
 </body>
 </html>
-</script>
